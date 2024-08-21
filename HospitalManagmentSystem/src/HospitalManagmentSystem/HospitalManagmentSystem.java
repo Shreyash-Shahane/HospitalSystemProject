@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.mysql.cj.xdevapi.PreparableStatement;
+
 public class HospitalManagmentSystem {
     private static final String url = "jdbc:mysql://127.0.0.1:3306/HospitalManagmentSystem";
     private static final String username = "root";
@@ -30,7 +32,8 @@ public class HospitalManagmentSystem {
                 System.out.println("3. View Doctors");
                 System.err.println("4. Book Appointments");
                 System.out.println("5. Delete Patient");
-                System.out.println("6. Exit");
+                System.out.println("6. View Appointments");
+                System.out.println("7. Exit");
                 System.out.println("Enter your choice");
                 int choice = scanner.nextInt();
 
@@ -61,6 +64,11 @@ public class HospitalManagmentSystem {
                         System.out.println();
                         break;
                     case 6:
+                        // View Appointments
+                        showAppointments(connection);
+                        System.out.println();
+                        break;    
+                    case 7:
                         // Exit
                         return;
                     default:
@@ -126,4 +134,27 @@ public class HospitalManagmentSystem {
         return false;
     }
 
+    public static void showAppointments(Connection connection){
+        String query = "SELECT a.id as appointment_id ,s.name as paitent_name, d.name as doctor_name, a.appointment_date  FROM hospitalmanagmentsystem.appointments a left join paitents s on s.id = a.paitent_id left join doctors d on d.id = a.doctor_id";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            System.out.println("Appointments: ");
+            System.out.println("+----------------+----------------------------------+--------------------------------+----------------------+");
+            System.out.println("| Appointment Id | Paitent Name                     |Doctor Name                     | Appointment Date     |");
+            System.out.println("+----------------+----------------------------------+--------------------------------+----------------------+");
+            while (rs.next()) {
+                int id = rs.getInt("appointment_id");
+                String pname = rs.getString("paitent_name");
+                String dname = rs.getString("doctor_name");
+                String date = rs.getString("appointment_date");
+                System.out.printf("|%-16s|%-34s|%-32s|%-22s|\n", id, pname,dname, date );
+            }
+            System.out.println("+----------------+----------------------------------+--------------------------------+----------------------+");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    } 
 }
