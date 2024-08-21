@@ -18,7 +18,7 @@ public class paitent {
     public void addpaitent(){
         System.out.print("Enter paitent Name: ");
         String name = scanner.next();
-        System.out.print("Enter paitent Age: ");
+        System.out.println("Enter paitent Age: ");
         int age = scanner.nextInt();
         System.out.print("Enter Paitent Gender: ");
         String gender = scanner.next();
@@ -58,7 +58,7 @@ public class paitent {
                 String name = resultSet.getString("name");
                 int age = resultSet.getInt("age");
                 String gender = resultSet.getString("gender");
-                System.out.printf("|%-12s|%-20s|%-10s|%-12s\n",id, name, age, gender);
+                System.out.printf("|%-12s|%-25s|%-9s|%-12s\n",id, name, age, gender);
                 System.out.println("+------------+-------------------------+---------+----------------+");
             }
         }catch (SQLException e) {
@@ -82,6 +82,35 @@ public class paitent {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void deletepaitent(){
+        System.out.print("Enter paitent Name: ");
+        String name = scanner.next();
+        System.out.println("Enter paitent Age: ");
+        int age = scanner.nextInt();
+        System.out.print("Enter Paitent Gender: ");
+        String gender = scanner.next();
+
+        try {
+            String query = "DELETE FROM paitents WHERE name = ? AND age = ? AND gender = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, age);
+            preparedStatement.setString(3, gender);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows>0){
+                System.out.println(" Paitent Deleted successfully");
+            }
+            else {
+                System.out.println("Failed to Delete patient");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

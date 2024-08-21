@@ -2,5 +2,21 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "c:\\Program Files (x86)\\MySQL\\mysql-connector-j-9.0.0.jar"
+    ],
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "127.0.0.1",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "HospitalManagmentSystem",
+            "username": "root",
+            "database": "hospitalmanagmentsystem",
+            "askForPassword": true
+        }
     ]
 }

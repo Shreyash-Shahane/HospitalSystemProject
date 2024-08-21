@@ -29,7 +29,8 @@ public class HospitalManagmentSystem {
                 System.out.println("2. View Patients");
                 System.out.println("3. View Doctors");
                 System.err.println("4. Book Appointments");
-                System.out.println("5. Exit");
+                System.out.println("5. Delete Patient");
+                System.out.println("6. Exit");
                 System.out.println("Enter your choice");
                 int choice = scanner.nextInt();
 
@@ -55,9 +56,13 @@ public class HospitalManagmentSystem {
                         System.out.println();
                         break;
                     case 5:
+                        // Book Appointments
+                        paitent.deletepaitent();
+                        System.out.println();
+                        break;
+                    case 6:
                         // Exit
                         return;
-
                     default:
                         System.out.println("Enter Valid choice !!!");
                         break;
@@ -118,8 +123,7 @@ public class HospitalManagmentSystem {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
-
     }
+
 }
